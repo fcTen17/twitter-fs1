@@ -8,7 +8,7 @@ const Square = props => {
           <p className="logo-bird"><i class="fa fa-twitter" aria-hidden="true"></i></p>
       </div>
       <div>
-          <p className="welcome">WELCOME TO TWITTER</p>
+          <p className="welcome">Welcome to Twitter</p>
       </div>
       <div className="user-form">
         <div class="log-in col-xs-4 ">
@@ -36,7 +36,7 @@ const Square = props => {
         <div class="sign-up col-xs-4 col-xs-offset-1">
           <form>
             <div class="new-to-t">
-              <p><strong>NEW TO TWITTER?</strong><span> SIGN UP</span></p>
+              <p><strong>New to twitter?</strong><span> SIGN UP</span></p>
             </div>
             <div class="form-group">
               <input type="text" class="form-control username" placeholder="Username"></input>
