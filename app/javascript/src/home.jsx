@@ -7,17 +7,9 @@ import './home.scss';
 
 const Home = () => (
   <div>
-    <h1>HOME PAGE<i class="fa fa-twitter" aria-hidden="true"></i></h1>
-    <p><i class="fa fa-twitter" aria-hidden="true"></i></p>
-    <div class="container user-box">
-      <div class="logo">
-        <p><i class="fa fa-twitter" aria-hidden="true"></i></p>
-      </div>
-      <div>
+    <div className="container user-box">
         <Square />
-      </div>
     </div>
-    
   </div>
 )
 
