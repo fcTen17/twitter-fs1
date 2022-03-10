@@ -1,0 +1,47 @@
+.card-wrapper{
+    font-weight:800;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.card-user-data {
+    display:flex;
+    justify-content: space-between;
+    color: black;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+
+}
+
+.names > .user-name {
+    font-size: 2.5rem;
+    margin-bottom: 0;
+}
+
+.names > .user-screen-name {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: grey;
+}
+
+.card-user-data > div > p {
+    margin-bottom: 0;
+}
+
+.user-logout{
+    padding-right: 0;
+}
+
+#log-out{
+    padding-right: 0;
+}
+
+#log-out:hover {
+    color:red;
+}
+
+.shadow {
+    box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+}

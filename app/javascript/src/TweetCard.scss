@@ -1,0 +1,69 @@
+.tweet-card-wrapper {
+  min-height: 50px;
+  background-color:snow;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.tweet-card-info {
+  display: flex;
+  padding: 10px;
+}
+.tweet-card-avatar{
+  padding:10px;
+  padding-top: 2px;
+  margin-right: 5px;
+}
+
+.tweet-card-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tweet-card-id {
+  width: 100%;
+}
+
+.tweet-card-id .user-name {
+  font-weight:800;
+}
+
+.tweet-card-id .screen-name{
+  font-weight: 200;
+  color:gray;
+}
+
+.tweet-card-message {
+  padding: 1rem;
+}
+
+.tweet-card-image{
+  width: 100px;
+  height:100px;
+  background-color: lightgray;
+}
+
+
+
+
+
+
+
+
+  
+
+
+
+ 
+
+  
+  
+
+
+  
+
+
+
+
+  
