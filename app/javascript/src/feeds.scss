@@ -2,10 +2,6 @@ body {
     background-color:black;
 }
 
-.feeds-wrapper{
-
-}
-
 .post-input {
     height: 3rem;
 }
@@ -15,7 +11,12 @@ body {
     color: white;
 }
 
-
+#newTweetDiv {
+    border-radius: 8px;
+    padding: 2px;
+    background-color: lightgray;
+    opacity: .95;
+}
 
 #newTweetSubmit {
     border: 2px white solid;
@@ -25,15 +26,15 @@ body {
     border-radius: 20px;
   }
 
-  .tweet-form {
-    display: block;
-  }
+.tweet-form {
+display: block;
+}
 
-  .post-char-counter {
-    color: lightgray;     
-  }
+.post-char-counter {
+color: lightgray;     
+}
 
-#radioButtons {
+#router-links {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly; 
@@ -60,14 +61,20 @@ body {
     border: 6px solid white;
   }
 
-.radio {
+.link {
     color: white;
-    font-weight: 500px;   
+    font-size: 2rem;
+    font-weight: 800;   
 }
 
-.radio > label {
-    font-size: 2rem;
-    font-weight: 800;
+.link:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.selected-route {
+    color: orange;
+    font-weight: 900;
 }
 
 
@@ -81,8 +88,6 @@ body {
 }
 
 .user-column{
-    //position: fixed;
-    //float: left;
     border-right: 1px grey solid;
 }
 

@@ -1,7 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import UserCard from './user_card'
-import TweetCard from './TweetCard'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import UserCard from './user_card';
+import TweetCard from './TweetCard';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {logoutUser, authenticate} from './requests'
 import { json, checkStatus , readURL } from './utils';
 import 'bootstrap/dist/css/bootstrap.css'
@@ -25,13 +26,17 @@ class Feeds extends React.Component {
     this.handleShowUserTweets = this.handleShowUserTweets.bind(this);
   }
 
-  handleShowAllTweets () {   
+  handleShowAllTweets () {
     fetch(`api/tweets`)
     .then(checkStatus)
     .then(json)      
     .then((data) => {
       if (data) {         
         this.setState({ tweets: data})
+        if ($('#user-feeds').hasClass('selected-route')) {
+          $('#user-feeds').removeClass('selected-route');
+        }
+        $('#everyone-feeds').toggleClass('selected-route');      
       }
     })
     .catch((error) => {
@@ -41,6 +46,7 @@ class Feeds extends React.Component {
   }
   
   handleShowUserTweets () {
+    
     let username = this.state.username;
     fetch(`api/users/${username}/tweets`)
     .then(checkStatus)
@@ -48,6 +54,8 @@ class Feeds extends React.Component {
     .then((data) => {
       if (data) {         
         this.setState({ tweets: data})
+        $('#user-feeds').toggleClass('selected-route');
+        $('#everyone-feeds').toggleClass('selected-route');
       }
     })
     .catch((error) => {
@@ -92,7 +100,6 @@ class Feeds extends React.Component {
     this.handleShowAllTweets ();
   };
   
-
   handleLogout() {
     logoutUser(function(){
       authenticate(function(response) {
@@ -108,8 +115,11 @@ class Feeds extends React.Component {
     let message = $('.post-input').val();
     let username = this.state.username;
     console.log(message + ' from ' + username);
-    /*let imageSelect = $('#image-select');
-    let image = imageSelect.files[0];*/
+    
+    /*
+    let imageSelect = $('#image-select');
+    let image = imageSelect.files[0];
+    */
 
     fetch('api/tweets', {
       method: 'POST',
@@ -163,52 +173,52 @@ class Feeds extends React.Component {
 
  render() {
   return (
-    <div className="feeds-wrapper">  
-      <div className="feeds-box container">
-        <div className="row row-height">
-          
-          <div className="user-column info-column col-4">
-            <p id="user-column-bird"><i className="fa fa-twitter" aria-hidden="true"></i></p>
-            <UserCard username={this.state.username} handleLogout={this.handleLogout}/>
-            <div className="feed-selection">
-              <h1>FEED</h1>
-              <div id="radioButtons">
-                  <div className="radio">
-                    <input type="radio" id="allSelected" className="filter" onClick={this.handleShowAllTweets} name="filter" value="all" defaultChecked></input> 
-                    <label htmlFor="allSelected">ALL</label>
-                  </div>
+    <Router>
+      <div className="feeds-wrapper">  
+        <div className="feeds-box container">
+          <div className="row row-height">
             
-                  <div className="radio">
-                    <input type="radio" id="yourSelected"  className="filter" onClick={this.handleShowUserTweets} name="filter" value="active"></input> 
-                    <label htmlFor="yourSelected">@{this.state.username} (<span id="yourTotal"></span>)</label>
-                  </div>                  
+            <div className="user-column info-column col-4">
+              <p id="user-column-bird"><i className="fa fa-twitter" aria-hidden="true"></i></p>
+              <UserCard username={this.state.username} handleLogout={this.handleLogout}/>
+              <div className="feed-selection">
+                <h1>CHOOSE YOUR FEED:</h1>
+                <div id="router-links">
+                    <Link to="/feeds" id="everyone-feeds" className="link" onClick={this.handleShowAllTweets}>
+                      EVERYONE
+                    </Link>
+
+                    <Link to={this.state.username} id="user-feeds" className="link" onClick={this.handleShowUserTweets}>
+                      @{this.state.username}
+                    </Link>                 
+                </div>
               </div>
             </div>
-          </div>
-           
-          <div className="feeds-column info-column col-8">
-            <div id="newTweetDiv">
-              <form className="form-group tweet-form">              
-                  <textarea className="form-control mt-4 mb-2 post-input"  placeholder="What's happening?" val="new Tweet" required></textarea>                 
-                  <div className="tweet-options-submit">
-                    <div>
-                      <p className="post-char-counter"></p>
-                    </div>                   
-                    <div>
-                      <input id="newTweetSubmit" type="submit" className="btn mb-2" onClick={this.handleSubmit} value="Tweet"></input>
-                    </div>
-                  </div>         
-              </form>
-            </div>
-            <div className="tweet-feeds">
-              {(() => {
-                return this.tweetRender( this.state.tweets, this.handleDelete );
-              })()}
+            
+            <div className="feeds-column info-column col-8">
+              <div id="newTweetDiv">
+                <form className="form-group tweet-form">              
+                    <textarea className="form-control mt-4 mb-2 post-input"  placeholder="What's happening?" val="new Tweet" required></textarea>                 
+                    <div className="tweet-options-submit">
+                      <div>
+                        <p className="post-char-counter"></p>
+                      </div>                   
+                      <div>
+                        <input id="newTweetSubmit" type="submit" className="btn mb-2" onClick={this.handleSubmit} value="Tweet"></input>
+                      </div>
+                    </div>         
+                </form>
+              </div>
+              <div className="tweet-feeds">
+                {(() => {
+                  return this.tweetRender( this.state.tweets, this.handleDelete );
+                })()}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Router>
   )
  }
 }
