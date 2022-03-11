@@ -68,8 +68,8 @@ color: lightgray;
 }
 
 .link:hover {
-    text-decoration: none;
-    color: white;
+    text-decoration: underline;
+    color:fade-in($color: #f0a6a6, $amount: 0)
 }
 
 .selected-route {
