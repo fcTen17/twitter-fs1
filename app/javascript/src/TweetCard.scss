@@ -25,13 +25,21 @@
   width: 100%;
 }
 
-.tweet-card-id .user-name {
+.tweetcard-user-name {
   font-weight:800;
 }
 
-.tweet-card-id .screen-name{
+.tweetcard-screen-name{
   font-weight: 200;
   color:gray;
+}
+
+.link-tweetcard{
+  color:black;
+}
+
+.link-tweetcard:hover{
+  color: black;
 }
 
 .tweet-card-message {

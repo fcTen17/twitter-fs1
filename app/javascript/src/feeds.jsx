@@ -64,7 +64,7 @@ class Feeds extends React.Component {
     });
   }
 
-  tweetRender = (tweetsObj, handleDeleteFunction) => {
+  tweetRender = (tweetsObj, sessionUsername, handleDeleteFunction) => {
     let tweetArr = tweetsObj.tweets;
     let listArr =[];
       
@@ -72,7 +72,7 @@ class Feeds extends React.Component {
       let tweetIndexId = tweetArr[i].id;
       let tweetUsername = tweetArr[i].username;
       let tweetMessage = tweetArr[i].message;
-      listArr.push(<TweetCard tweetUsername={tweetUsername} tweetIndexId={tweetIndexId} key={tweetIndexId} handleDeleteFunction={handleDeleteFunction} tweetMessage={tweetMessage}/>);
+      listArr.push(<TweetCard tweetUsername={tweetUsername} sessionUsername={sessionUsername} tweetIndexId={tweetIndexId} key={tweetIndexId} handleDeleteFunction={handleDeleteFunction} handleShowUserTweets={this.handleShowUserTweets} tweetMessage={tweetMessage}/>);
     }   
     return listArr;
   }
@@ -211,7 +211,7 @@ class Feeds extends React.Component {
               </div>
               <div className="tweet-feeds">
                 {(() => {
-                  return this.tweetRender( this.state.tweets, this.handleDelete );
+                  return this.tweetRender( this.state.tweets, this.state.username, this.handleDelete );
                 })()}
               </div>
             </div>
