@@ -8,6 +8,20 @@ import { json, checkStatus , readURL } from './utils';
 import 'bootstrap/dist/css/bootstrap.css'
 import './feeds.scss';
 
+const everyoneFeedSelectorCSS = () => {
+  if (!$('#everyone-feeds').hasClass('selected-route')) {
+    $('#everyone-feeds').addClass('selected-route');
+  };
+  $('#user-feeds').removeClass('selected-route');
+}
+
+const userFeedSelectorCSS = () => {
+  if (!$('#user-feeds').hasClass('selected-route')) {
+    $('#user-feeds').addClass('selected-route');
+  };
+  $('#everyone-feeds').removeClass('selected-route');
+}
+
 class Feeds extends React.Component {
  
   constructor(props) {
@@ -33,10 +47,7 @@ class Feeds extends React.Component {
     .then((data) => {
       if (data) {         
         this.setState({ tweets: data})
-        if ($('#user-feeds').hasClass('selected-route')) {
-          $('#user-feeds').removeClass('selected-route');
-        }
-        $('#everyone-feeds').toggleClass('selected-route');      
+        everyoneFeedSelectorCSS();    
       }
     })
     .catch((error) => {
@@ -54,8 +65,7 @@ class Feeds extends React.Component {
     .then((data) => {
       if (data) {         
         this.setState({ tweets: data})
-        $('#user-feeds').toggleClass('selected-route');
-        $('#everyone-feeds').toggleClass('selected-route');
+        userFeedSelectorCSS();
       }
     })
     .catch((error) => {
