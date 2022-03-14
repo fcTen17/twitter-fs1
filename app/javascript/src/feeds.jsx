@@ -38,6 +38,24 @@ class Feeds extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleShowAllTweets = this.handleShowAllTweets.bind(this);
     this.handleShowUserTweets = this.handleShowUserTweets.bind(this);
+    this.handleUserSelection = this.handleUserSelection.bind(this);
+  }
+
+  handleUserSelection (event) {
+    const username = event.currentTarget.getAttribute("data-value");
+    fetch(`api/users/${username}/tweets`)
+    .then(checkStatus)
+    .then(json)      
+    .then((data) => {
+      if (data) {         
+        this.setState({ tweets: data})
+        userFeedSelectorCSS();
+      }
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+      console.log(error);
+    });
   }
 
   handleShowAllTweets () {
@@ -57,8 +75,8 @@ class Feeds extends React.Component {
   }
   
   handleShowUserTweets () {
-    
     let username = this.state.username;
+    
     fetch(`api/users/${username}/tweets`)
     .then(checkStatus)
     .then(json)      
@@ -74,7 +92,9 @@ class Feeds extends React.Component {
     });
   }
 
-  tweetRender = (tweetsObj, sessionUsername, handleDeleteFunction) => {
+  
+
+  tweetRender = (tweetsObj, sessionUsername, handleUserSelection, handleDeleteFunction) => {
     let tweetArr = tweetsObj.tweets;
     let listArr =[];
       
@@ -82,7 +102,7 @@ class Feeds extends React.Component {
       let tweetIndexId = tweetArr[i].id;
       let tweetUsername = tweetArr[i].username;
       let tweetMessage = tweetArr[i].message;
-      listArr.push(<TweetCard tweetUsername={tweetUsername} sessionUsername={sessionUsername} tweetIndexId={tweetIndexId} key={tweetIndexId} handleDeleteFunction={handleDeleteFunction} handleShowUserTweets={this.handleShowUserTweets} tweetMessage={tweetMessage}/>);
+      listArr.push(<TweetCard tweetUsername={tweetUsername} sessionUsername={sessionUsername} tweetIndexId={tweetIndexId} key={tweetIndexId} handleUserSelection={handleUserSelection} handleDeleteFunction={handleDeleteFunction}  tweetMessage={tweetMessage}/>);
     }   
     return listArr;
   }
@@ -190,17 +210,12 @@ class Feeds extends React.Component {
             
             <div className="user-column info-column col-4">
               <p id="user-column-bird"><i className="fa fa-twitter" aria-hidden="true"></i></p>
-              <UserCard username={this.state.username} handleLogout={this.handleLogout}/>
+              <UserCard username={this.state.username} handleShowUserTweets={this.handleShowUserTweets} handleLogout={this.handleLogout} />
               <div className="feed-selection">
-                <h1>CHOOSE YOUR FEED:</h1>
                 <div id="router-links">
                     <Link to="/feeds" id="everyone-feeds" className="link" onClick={this.handleShowAllTweets}>
-                      EVERYONE
-                    </Link>
-
-                    <Link to={this.state.username} id="user-feeds" className="link" onClick={this.handleShowUserTweets}>
-                      @{this.state.username}
-                    </Link>                 
+                      <i className="fas fa-home"></i>
+                    </Link>   
                 </div>
               </div>
             </div>
@@ -221,7 +236,7 @@ class Feeds extends React.Component {
               </div>
               <div className="tweet-feeds">
                 {(() => {
-                  return this.tweetRender( this.state.tweets, this.state.username, this.handleDelete );
+                  return this.tweetRender( this.state.tweets, this.state.username, this.handleUserSelection, this.handleDelete );
                 })()}
               </div>
             </div>

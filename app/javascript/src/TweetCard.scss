@@ -25,6 +25,12 @@
   width: 100%;
 }
 
+.link-tweetcard > button {
+  border: none;
+  outline: none;
+  background: none;
+}
+
 .tweetcard-user-name {
   font-weight:800;
 }
